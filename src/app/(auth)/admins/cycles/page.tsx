@@ -71,6 +71,9 @@ export default function Years() {
 
   return (
     <div className="container pt-20 flex flex-col gap-4 justify-around w-full" >
+      <div>
+        <Link href="/admins/cycles/add" ><Button variant="default" size="sm">+ Novo</Button></Link>
+      </div>
       <DataTable 
         columns={columns}
         data={data}

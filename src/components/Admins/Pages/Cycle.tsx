@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { api } from "@/services/apiClient"
 import { ArrowLeft } from "lucide-react"
@@ -38,6 +39,7 @@ export default function Cycle({
   data,
 }: ICycleProps) {
   const { addToast } = useToast();
+  const router = useRouter()
 
   const { 
     register, 
@@ -68,6 +70,7 @@ export default function Cycle({
         description: data ? "Ciclo alterado com sucesso!" : "Ciclo criado com sucesso!",
       });
       
+      router.push('/admins/cycles', { scroll: false })
       return;
     } else {
         addToast({
