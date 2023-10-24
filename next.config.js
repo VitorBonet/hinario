@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  suppressHydrationWarning: ["cz-shortcut-listen"],
+}
 
 module.exports = nextConfig

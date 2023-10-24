@@ -24,7 +24,7 @@ export default function Home() {
             height={150}
           />  
           <div className='flex justify-center items-center flex-col text-white'>
-            <h3 className="scroll-m-20 text-3xl font-semibold tracking-tight">VENHA PLANEJAR O REPERTÓRIO DA </h3>
+            <h3 className="scroll-m-20 text-3xl font-semibold tracking-tight">VENHA PREPARAR A </h3>
             <h1 className={`font-carabella text-8xl mt-[12px] `}>Celebração</h1>
           </div>
           <h4 className="scroll-m-20 text-xm tracking-tight text-gray-400">
