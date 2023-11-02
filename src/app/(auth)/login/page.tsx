@@ -65,7 +65,7 @@ export default function Login() {
       return;
     } else {
         setTimeout(() => {
-          router.push('/home');
+          router.push('/hinario');
         }, 1000);
     }
   }

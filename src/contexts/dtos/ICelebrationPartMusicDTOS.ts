@@ -6,5 +6,6 @@ export interface ICelebrationPartMusicDTOS {
   celebrationPartId: string;
   musicId: string;
   music: IMusicDTOS;
+  required: boolean;
   celebrationPart: ICelebrationPartDTOS
 }

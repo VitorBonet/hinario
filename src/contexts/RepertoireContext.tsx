@@ -1,7 +1,7 @@
 'use client'
 
 import { api } from '@/services/apiClient';
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
 import { IYearsDTOS } from './dtos/IYearsDTOS';
 import { IHinaarioParametersDTOS } from './dtos/IHinaarioParametersDTOS';
 import { ICyclesDTOS } from './dtos/ICyclesDTOS';
@@ -9,6 +9,7 @@ import { ICelebrationsDTOS } from './dtos/ICelebrationsDTOS';
 import { IMusicDTOS } from './dtos/IMusicDTOS';
 import { useAuth } from './AuthContext';
 import { ICelebrationPartDTOS } from './dtos/ICelebrationPartDTOS';
+import { IRepertorioDTOS } from './dtos/IRepertorioDTOS';
 
 type RepertoireProviderProps = {
   children: ReactNode;
@@ -22,6 +23,9 @@ type RepertoireContextData = {
   celebrations: ICelebrationsDTOS[] | [];
   celebrationsParts: ICelebrationPartDTOS[] | [];
   musics: IMusicDTOS[] | [];
+  repertoire: IRepertorioDTOS | undefined;
+  setRepertoire: Dispatch<SetStateAction<IRepertorioDTOS | undefined>>;
+  createRepertoire: (data: IRepertorioDTOS) => boolean;
   selectParameters: (params: IHinaarioParametersDTOS) => void;
   nextPage: () => void;
   backPage: () => void;
@@ -37,7 +41,7 @@ export function RepertoireProvider({ children }: RepertoireProviderProps) {
   const [celebrationsParts, setCelebrationsParts] = useState([]);
   const [musics, setMusics] = useState([]);
   const [parameter, setParameter] = useState({} as IHinaarioParametersDTOS);
-  const [repertoire, setRepertoire] = useState();
+  const [repertoire, setRepertoire] = useState<IRepertorioDTOS>();
   const { user } = useAuth();
 
   function nextPage() {
@@ -124,6 +128,11 @@ export function RepertoireProvider({ children }: RepertoireProviderProps) {
     setParameter(newParameter);
   }
 
+  const createRepertoire = (data: IRepertorioDTOS) => {
+    console.log('createRepertoire', data);
+    return true;
+  }
+
   useEffect(() => {
     getYears();
   }, [])
@@ -138,6 +147,9 @@ export function RepertoireProvider({ children }: RepertoireProviderProps) {
         celebrations,
         celebrationsParts,
         musics,
+        repertoire, 
+        setRepertoire,
+        createRepertoire,
         selectParameters,
         nextPage,
         backPage,
