@@ -47,21 +47,24 @@ export default function Repertoires() {
   const [deleteId, setDeleteId] = useState("")
 
   const deleteOption = async () => {
-    // const response = await api.delete(`/admins/celebrations/${deleteId}`);
-    // if (response.status == 200) {
-    //   addToast({
-    //     type: "success",
-    //     title: "Sucesso",
-    //     description: "Item deletado com sucesso!",
-    //   });
-    //   return;
-    // } else {
-    //     addToast({
-    //       type: "error",
-    //       title: "Erro",
-    //       description: "Não foi possível finalizar a operação, tente novamente mais tarde!",
-    //     });
-    // }
+    if (!deleteId) return false;
+
+    const response = await api.delete(`/repertoires/${deleteId}`);
+    if (response.status == 200) {
+      addToast({
+        type: "success",
+        title: "Sucesso",
+        description: "Item deletado com sucesso!",
+      });
+      getDataItem();
+      return;
+    } else {
+        addToast({
+          type: "error",
+          title: "Erro",
+          description: "Não foi possível finalizar a operação, tente novamente mais tarde!",
+        });
+    }
   }
 
   const columns: ColumnDef<IRepertorioDTOS>[] = [
@@ -82,7 +85,7 @@ export default function Repertoires() {
       enableSorting: true,
       size: 50,
       cell: ({ row }) => {
-        return <div>{format(row.getValue("createdAt"), 'Pp', { locale: ptBR })}</div>
+        return <div>{format(new Date(row.getValue("createdAt")), 'Pp', { locale: ptBR })}</div>
       },
     },
     {
@@ -96,7 +99,7 @@ export default function Repertoires() {
             <Button variant="ghost" className="h-8 w-8 p-0" title="Editar">
               <FileSignatureIcon className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" className="h-8 w-8 p-0" title="Deletar">
+            <Button variant="ghost" className="h-8 w-8 p-0" title="Deletar" onClick={() => {setAlertDialogOpen(true); setDeleteId(item.id || "");}}>
               <TrashIcon className="h-4 w-4" />
             </Button>
             <Button variant="ghost" className="h-8 w-8 p-0" title="Compartilhar">
@@ -109,27 +112,8 @@ export default function Repertoires() {
   ]
 
   const getDataItem = async () => {
-    // const response = await api.get('/admins/celebrations/');
-    // setData(response.data);
-    setData([
-      { id: '1', title: 'Repertório 1', createdAt: new Date(), musics: [] },
-      { id: '2', title: 'Repertório 2', createdAt: new Date(), musics: [] },
-      { id: '3', title: 'Repertório 3', createdAt: new Date(), musics: [] },
-      { id: '4', title: 'Repertório 4', createdAt: new Date(), musics: [] },
-      { id: '5', title: 'Repertório 5', createdAt: new Date(), musics: [] },
-      { id: '6', title: 'Repertório 6', createdAt: new Date(), musics: [] },
-      { id: '7', title: 'Repertório 7', createdAt: new Date(), musics: [] },
-      { id: '8', title: 'Repertório 8', createdAt: new Date(), musics: [] },
-      { id: '9', title: 'Repertório 9', createdAt: new Date(), musics: [] },
-      { id: '10', title: 'Repertório 10', createdAt: new Date(), musics: [] },
-      { id: '11', title: 'Repertório 11', createdAt: new Date(), musics: [] },
-      { id: '12', title: 'Repertório 12', createdAt: new Date(), musics: [] },
-      { id: '13', title: 'Repertório 13', createdAt: new Date(), musics: [] },
-      { id: '14', title: 'Repertório 14', createdAt: new Date(), musics: [] },
-      { id: '15', title: 'Repertório 15', createdAt: new Date(), musics: [] },
-      { id: '16', title: 'Repertório 16', createdAt: new Date(), musics: [] },
-      { id: '17', title: 'Repertório 17', createdAt: new Date(), musics: [] },
-    ])
+    const response = await api.get('/repertoires');
+    setData(response.data);
   }
 
   useEffect(() => {

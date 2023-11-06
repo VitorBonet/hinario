@@ -25,7 +25,7 @@ type RepertoireContextData = {
   musics: IMusicDTOS[] | [];
   repertoire: IRepertorioDTOS | undefined;
   setRepertoire: Dispatch<SetStateAction<IRepertorioDTOS | undefined>>;
-  createRepertoire: (data: IRepertorioDTOS) => boolean;
+  createRepertoire: (data: IRepertorioDTOS) => Promise<boolean>;
   selectParameters: (params: IHinaarioParametersDTOS) => void;
   nextPage: () => void;
   backPage: () => void;
@@ -128,9 +128,18 @@ export function RepertoireProvider({ children }: RepertoireProviderProps) {
     setParameter(newParameter);
   }
 
-  const createRepertoire = (data: IRepertorioDTOS) => {
-    console.log('createRepertoire', data);
-    return true;
+  const createRepertoire = async (data: IRepertorioDTOS) => {
+    const dataPrepared = Object.assign({}, data);
+    dataPrepared.repertoireCelebrationPartMusic?.forEach((item) => {
+      delete item.celebrationPartMusic;
+    });
+    const response = await api.post(`/repertoires`, dataPrepared);
+    if (response.status == 200) return true;
+    return false;
+  }
+
+  const getRepertoire = (id: string) => {
+
   }
 
   useEffect(() => {

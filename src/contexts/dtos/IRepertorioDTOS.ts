@@ -5,9 +5,14 @@ import { IMusicDTOS } from "./IMusicDTOS";
 export interface IRepertorioDTOS {
   id?: string;
   title: string;
-  musics: {
+  repertoireCelebrationPartMusic: {
     celebrationPartMusicId: string;
-    celebrationPartMusic: ICelebrationPartMusicDTOS;
+    celebrationPartMusic?: ICelebrationPartMusicDTOS;
   }[];
   createdAt?: Date;
+  createdByUser: {
+		id: string;
+		name: string;
+		email: string;
+	},
 }

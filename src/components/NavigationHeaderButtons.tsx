@@ -45,7 +45,7 @@ export function NavigationHeaderButtons({ user }: INavigationHeaderButtonsProps)
 
         <div className="flex flex-1 items-center justify-center space-x-2 md:justify-center">
           <Button variant="ghost">Comece Já</Button>
-          <Button variant="ghost">Repertório</Button>
+          <Button variant="ghost" onClick={() => router.push('/repertories')}>Repertório</Button>
           <Button variant="ghost">Musicas</Button>
           <Button variant="ghost">Biblioteca</Button>
 

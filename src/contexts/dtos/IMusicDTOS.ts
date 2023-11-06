@@ -8,5 +8,10 @@ export interface IMusicDTOS {
   tablatura: string;
   createdAt: Date;
   updatedAt: Date;
+  notes: {
+    key: string;
+    note: string;
+    position: number;
+  }[];
   celebrationPartMusic: ICelebrationPartMusicDTOS[]
 }

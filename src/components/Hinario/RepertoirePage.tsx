@@ -57,33 +57,27 @@ export function RepertoirePage() {
   });
   
   async function handleCreate(newData: any) {
-    // const response = await api.post(`/repositoire`, newData)
-        
-    // if (response.status == 200) {
-    //   addToast({
-    //     type: "success",
-    //     title: "Sucesso",
-    //     description: "Repertório criado com sucesso!",
-    //   });
-      
-      // router.push('/admins/celebrations', { scroll: false })
-      console.log(newData);
-      console.log(repertoire);
       if(repertoire) {
         const newRepo = {...repertoire, title: newData.title};
         setRepertoire(newRepo);
-        createRepertoire(newRepo);
+        const created = await createRepertoire(newRepo);
+        if (created) {
+          addToast({
+            type: "success",
+            title: "Sucesso",
+            description: "Repertório criado com sucesso!",
+          });
+        } else {
+          addToast({
+            type: "error",
+            title: "Erro",
+            description: "Não foi possível finalizar a operação, tente novamente mais tarde!",
+          });
+        }
       }
       
       setAlertDialogOpen(false);
       return;
-    // } else {
-    //     addToast({
-    //       type: "error",
-    //       title: "Erro",
-    //       description: "Não foi possível finalizar a operação, tente novamente mais tarde!",
-    //     });
-    // }
   }
 
   return (
@@ -114,8 +108,8 @@ export function RepertoirePage() {
           {celebrationsParts.map(cp => (
             <div className="flex flex-col">
               <h3 className="text-2x1 font-semibold tracking-tight">{cp.part.description}</h3>
-              { repertoire?.musics.find(music => music.celebrationPartMusic.celebrationPartId === cp.id)?.celebrationPartMusic.music.title ? (
-                <h3 className="text-2x1 font-semibold tracking-tight">{repertoire?.musics.find(music => music.celebrationPartMusic.celebrationPartId === cp.id)?.celebrationPartMusic.music.title}</h3>
+              { repertoire?.repertoireCelebrationPartMusic.find(music => music && music.celebrationPartMusic && music.celebrationPartMusic?.celebrationPartId === cp.id)?.celebrationPartMusic.music.title ? (
+                <h3 className="text-2x1 font-semibold tracking-tight">{repertoire?.repertoireCelebrationPartMusic.find(music => music.celebrationPartMusic?.celebrationPartId === cp.id)?.celebrationPartMusic.music.title}</h3>
               ) : (
                 <h3 className="text-2x1 font-semibold tracking-tight">-</h3>
               )}

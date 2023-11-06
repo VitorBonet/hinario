@@ -16,14 +16,14 @@ export function RepertoireSelectViewMusic({ viewMusic }: IRepertoireSelectViewMu
   const addMusicRepertoire = () => {
     if (!viewMusic) return;
     
-    const filteredMusicsRepertoire = repertoire?.musics.filter(cp => cp.celebrationPartMusic.celebrationPartId !== viewMusic.celebrationPartId);
+    const filteredMusicsRepertoire = repertoire?.repertoireCelebrationPartMusic.filter(cp => cp.celebrationPartMusic.celebrationPartId !== viewMusic.celebrationPartId);
     if (filteredMusicsRepertoire && repertoire) {
       const newRep = repertoire;
-      newRep.musics = filteredMusicsRepertoire
-      newRep.musics.push({ celebrationPartMusicId: viewMusic.id, celebrationPartMusic: viewMusic });
-      setRepertoire({ title: '', musics: newRep.musics })
+      newRep.repertoireCelebrationPartMusic = filteredMusicsRepertoire
+      newRep.repertoireCelebrationPartMusic.push({ celebrationPartMusicId: viewMusic.id, celebrationPartMusic: viewMusic });
+      setRepertoire({ title: '', repertoireCelebrationPartMusic: newRep.repertoireCelebrationPartMusic })
     } else {
-      setRepertoire({ title: '', musics: [ { celebrationPartMusicId: viewMusic.id, celebrationPartMusic: viewMusic } ] })
+      setRepertoire({ title: '', repertoireCelebrationPartMusic: [ { celebrationPartMusicId: viewMusic.id, celebrationPartMusic: viewMusic } ] })
     }
   }
 
