@@ -29,7 +29,7 @@ export default function RepertoiresView({ params }: { params: { id: string } }) 
   return (
     <div className="container pl-24 pt-20 flex flex-col gap-4 w-full h-screen bg-white text-black" >
       {data ? (
-        <div className='flex flex-col gap-8 pb-20'>
+        <div className='flex flex-col gap-16 pb-20'>
           <div>
             <h1 className="text-4x1 md:text-5xl lg:text-5xl tracking-tight font-extrabold text-red-primary">{data.title}</h1>
             <h3 className="text-2x1 tracking-tight">Repertório criado por {data.createdByUser.name}</h3>
@@ -44,6 +44,7 @@ export default function RepertoiresView({ params }: { params: { id: string } }) 
           
           {data.repertoireCelebrationPartMusic?.map(cpm => (
             <Music 
+              part={cpm.celebrationPartMusic?.celebrationPart.part.description || ""}
               title={cpm.celebrationPartMusic?.music.title || ""}
               lyrics={cpm.celebrationPartMusic?.music.lyrics || ""}
               notes={cpm.celebrationPartMusic?.music.notes || []}

@@ -88,7 +88,7 @@ export function RepertoirePage() {
           {/* <Button variant="ghost" type="submit">Proximo <AiOutlineDoubleRight /></Button> */}
         </div>
         <div className="flex flex-col">
-              <div className="mt-10 flex flex-col gap-4">
+              <div className="mt-10 flex flex-col gap-8">
                 {celebrationsParts.map(cp => ( <RepertoireSelectMusic celebrationPart={cp} /> ))}
               </div>
         </div>

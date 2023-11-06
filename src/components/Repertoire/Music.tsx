@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select"
 
 interface IMusicProps {
+  part: string;
   title: string;
   lyrics: string;
   notes: {
@@ -22,6 +23,7 @@ interface IMusicProps {
 }
 
 export function Music({
+  part,
   title,
   lyrics,
   notes,
@@ -81,6 +83,7 @@ export function Music({
             </SelectContent>
           </Select>
         </div>
+        <h3 className="text-sm tracking-tight font-semibold mb-6">{part}</h3>
         <p className="text-sm tracking-tight mt-4"> 
           <div dangerouslySetInnerHTML={{__html: chords}}></div>
         </p>
