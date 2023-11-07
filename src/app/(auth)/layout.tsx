@@ -1,5 +1,5 @@
 import { ToastProvider } from '@/contexts/ToastContext'
-import { AuthProvider } from '@/contexts/AuthContext'
+import { AuthProvider, useAuth } from '@/contexts/AuthContext'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

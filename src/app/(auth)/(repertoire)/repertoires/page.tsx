@@ -21,10 +21,14 @@ interface ICelebrations {
 export default function Repertoires() {
   const { addToast } = useToast();
   const [data, setData] = useState<IRepertorioDTOS[]>([]);
+  const [notFound, setNotFound] = useState(false);
 
   const getDataItem = async () => {
     const response = await api.get('/repertoires');
     setData(response.data);
+    if (!response.data) {
+      setNotFound(true);
+    }
   }
 
   useEffect(() => {
@@ -46,27 +50,33 @@ export default function Repertoires() {
         <h3 className="text-2x1 tracking-tight">TODAS AS SUAS CELEBRAÇÕES</h3>
       </div>
       <div className='flex flex-col gap-4 mb-10'>
-        {data.length <= 0 ? (
+        {notFound ? (
           <>
-          <Skeleton className="w-5/6 h-32" />
-          <Skeleton className="w-5/6 h-32" />
-          <Skeleton className="w-5/6 h-32" />
-          <Skeleton className="w-5/6 h-32" />
+          {data.length <= 0 ? (
+            <>
+            <Skeleton className="w-5/6 h-32" />
+            <Skeleton className="w-5/6 h-32" />
+            <Skeleton className="w-5/6 h-32" />
+            <Skeleton className="w-5/6 h-32" />
+            </>
+          ) : (
+            <>
+            {data.map(rep => (
+              <RepertoiresCard 
+                key={rep.id}
+                id={rep.id || ""}
+                title={rep.title}
+                year={rep.repertoireCelebrationPartMusic[0].celebrationPartMusic?.celebrationPart.year.description || ""}
+                cycle={rep.repertoireCelebrationPartMusic[0].celebrationPartMusic?.celebrationPart.cycle.description || ""}
+                celebration={rep.repertoireCelebrationPartMusic[0].celebrationPartMusic?.celebrationPart.celebration.description || ""}
+                musics={rep.repertoireCelebrationPartMusic.map((rcpm, i) => i + 1 + ". " +rcpm.celebrationPartMusic?.music.title).join("; ")}
+              />
+            ))}
+            </>
+          )}
           </>
         ) : (
-          <>
-          {data.map(rep => (
-            <RepertoiresCard 
-              key={rep.id}
-              id={rep.id || ""}
-              title={rep.title}
-              year={rep.repertoireCelebrationPartMusic[0].celebrationPartMusic?.celebrationPart.year.description || ""}
-              cycle={rep.repertoireCelebrationPartMusic[0].celebrationPartMusic?.celebrationPart.cycle.description || ""}
-              celebration={rep.repertoireCelebrationPartMusic[0].celebrationPartMusic?.celebrationPart.celebration.description || ""}
-              musics={rep.repertoireCelebrationPartMusic.map((rcpm, i) => i + 1 + ". " +rcpm.celebrationPartMusic?.music.title).join("; ")}
-            />
-          ))}
-          </>
+          <p className='mt-8'>Você ainda não criou nenhum repertório!</p>
         )}
       </div>
     </div>

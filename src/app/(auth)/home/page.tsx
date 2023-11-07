@@ -2,15 +2,20 @@
 
 import { NavigationHeaderButtons } from "@/components/NavigationHeaderButtons";
 import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { user } = useAuth();
-  console.log(user);
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
 
+  useEffect(() => {
+    if (!isAuthenticated) router.push('/login');
+  }, [isAuthenticated])
+  
   return (
     <div className="min-h-screen bg-red-primary" >
       <NavigationHeaderButtons user={user} />
-      <h1>teste</h1>
     </div>
   )
 }

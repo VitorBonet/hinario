@@ -44,7 +44,7 @@ export function NavigationHeaderButtons({ user }: INavigationHeaderButtonsProps)
         </div>
 
         <div className="flex flex-1 items-center justify-center space-x-2 md:justify-center">
-          <Button variant="ghost">Comece Já</Button>
+          <Button variant="ghost" onClick={() => router.push('/hinario')}>Comece Já</Button>
           <Button variant="ghost" onClick={() => router.push('/repertoires')}>Repertório</Button>
           <Button variant="ghost">Musicas</Button>
           <Button variant="ghost">Biblioteca</Button>
@@ -74,8 +74,8 @@ export function NavigationHeaderButtons({ user }: INavigationHeaderButtonsProps)
           </div>
             
           <div className="hidden rounded-sm shadow-md p-1 peer-hover:flex hover:flex w-[200px] transition fixed flex-col bg-white text-red-primary right-2 top-11 text-sm">
-                <a className="px-4 py-2 hover:bg-gray-200 rounded-sm" href="#">About Us</a>
-                <a className="px-4 py-2 hover:bg-gray-200 rounded-sm" href="#">Contact Us</a>
+                {/* <a className="px-4 py-2 hover:bg-gray-200 rounded-sm" href="#">About Us</a>
+                <a className="px-4 py-2 hover:bg-gray-200 rounded-sm" href="#">Contact Us</a> */}
                 <a className="px-4 py-2 hover:bg-gray-200 rounded-sm cursor-pointer" onClick={handleSignOut}>Sair</a>
             </div>
           </>

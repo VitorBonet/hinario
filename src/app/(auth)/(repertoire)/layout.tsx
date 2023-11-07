@@ -1,8 +1,10 @@
 "use client"
 
+import type { Metadata } from 'next'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { ToastProvider } from '@/contexts/ToastContext'
 import { RepertoireProvider } from '@/contexts/RepertoireContext'
-import type { Metadata } from 'next'
 import { NavigationHeaderButtons } from '@/components/NavigationHeaderButtons'
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -12,7 +14,12 @@ export const metadata: Metadata = {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated) router.push('/login');
+  }, [isAuthenticated])
 
   return (
     <RepertoireProvider>

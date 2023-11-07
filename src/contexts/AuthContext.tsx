@@ -4,6 +4,8 @@ import { createContext, ReactNode, useContext, useEffect, useState } from 'react
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import { api } from '../services/apiClient';
 import { IUser } from './dtos/IUserDTOS';
+import { useRouter } from 'next/navigation';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 
 type SinInCredentials = {
   email: string;
@@ -18,7 +20,7 @@ type SinInUserSocial = {
 }
 
 type SaveSingIn = {
-  user: User;
+  user: IUser;
   token: string;
   refreshToken: string;
   permissions: string[];
@@ -48,7 +50,7 @@ export const AuthContext = createContext({} as AuthContextData);
 
 let authChannel: BroadcastChannel;
 
-export async function signOut(router) {
+export async function signOut(router: AppRouterInstance) {
   destroyCookie(undefined, 'nextauth.token');
   destroyCookie(undefined, 'nextauth.refreshToken');
 
@@ -58,6 +60,7 @@ export async function signOut(router) {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
+  const router = useRouter();
   const [user, setUser] = useState<IUser>();
   const isAuthenticated = !!user;
 
@@ -67,10 +70,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     authChannel.onmessage = (message) => {
       switch (message.data) {
         case 'singIn':
-          Router.push('/home');
+          router.push('/home');
           break;
         case 'singOut':
-          signOut();
+          signOut(router);
           break;
         default: 
           break;
@@ -101,8 +104,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         roles 
       });
     }).catch(() => {
-      console.log('meeee');
-      signOut();
+      signOut(router);
     })
   }
 
@@ -181,12 +183,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setUser({
       id: user.id, 
       name: user.name, 
-      profileName: user.profileName, 
-      profileLink: user.profileLink, 
       email: user.email, 
-      avatarUrl: user.avatarUrl,
-      permissions,
-      roles
+      phone: user.phone, 
+      dioceseId: user.dioceseId, 
+      parishId: user.parishId, 
+      permissions, 
+      roles 
     });
 
     api.defaults.headers['Authorization'] = `Baerer ${token}`;
