@@ -5,6 +5,7 @@ export interface IUser {
   phone: string; 
   dioceseId: string;
   parishId: string;
+  isAdmin: boolean;
   permissions: string[];
   roles: string[];
 }

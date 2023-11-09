@@ -100,6 +100,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         phone: user.phone, 
         dioceseId: user.dioceseId, 
         parishId: user.parishId, 
+        isAdmin: user.isAdmin, 
         permissions, 
         roles 
       });
@@ -187,6 +188,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       phone: user.phone, 
       dioceseId: user.dioceseId, 
       parishId: user.parishId, 
+      isAdmin: user.isAdmin, 
       permissions, 
       roles 
     });

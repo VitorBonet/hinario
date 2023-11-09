@@ -44,11 +44,12 @@ export function NavigationHeaderButtons({ user }: INavigationHeaderButtonsProps)
         </div>
 
         <div className="flex flex-1 items-center justify-center space-x-2 md:justify-center">
-          <Button variant="ghost" onClick={() => router.push('/hinario')}>Comece Já</Button>
+          {/* <Button variant="ghost" onClick={() => router.push('/hinario')}>Comece Já</Button>
           <Button variant="ghost" onClick={() => router.push('/repertoires')}>Repertório</Button>
           <Button variant="ghost">Musicas</Button>
-          <Button variant="ghost">Biblioteca</Button>
+          <Button variant="ghost">Biblioteca</Button> */}
 
+          {user && user.isAdmin ? (
           <div>
             <div className="peer flex gap-2 py-2 items-center cursor-pointer">
               <p className="scroll-m-20 text-sm tracking-tight">Admin</p>
@@ -61,6 +62,7 @@ export function NavigationHeaderButtons({ user }: INavigationHeaderButtonsProps)
               <a className="px-4 py-2 hover:bg-gray-200 rounded-sm" href="/admins/parts">Partes da Celebração</a>
             </div>
           </div>
+          ) : null}
         </div>
 
         { user ? (
@@ -81,7 +83,7 @@ export function NavigationHeaderButtons({ user }: INavigationHeaderButtonsProps)
           </>
         ) : (
           <div>
-            <Button variant="ghost" onClick={() => router.push('/login')}>Entrar</Button>
+            {/* <Button variant="ghost" onClick={() => router.push('/login')}>Entrar</Button> */}
           </div>
         )}
       </div>
